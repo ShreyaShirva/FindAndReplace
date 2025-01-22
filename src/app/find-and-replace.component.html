@@ -1,0 +1,46 @@
+<div class="find-and-replace-page">
+	<h1>Find and Replace</h1>
+
+	<div class="find-and-replace-container col-6" [formGroup]="findAndReplaceForm">
+	<div *ngIf="text?.invalid && text?.touched && text?.errors?.['required']" class="error-message">
+		Text cannot be empty
+	</div>
+	<textarea formControlName="text" rows="10" placeholder="Type or paste your text here"></textarea>
+
+	<div class="find-inputs">
+		<div class="left-column">
+		  <div class="input-group">
+			<div *ngIf="findText?.invalid && findText?.touched && findText?.errors?.['required']" class="error-message">
+			  Find text cannot be empty
+			</div>
+			<input type="text" formControlName="findText" placeholder="Find text" />
+		  </div>
+	  
+		  <div class="input-group">
+			<div *ngIf="replaceText?.invalid && replaceText?.touched && replaceText?.errors?.['required']" class="error-message">
+			  Replace text cannot be empty
+			</div>
+			<input type="text" formControlName="replaceText" placeholder="Replace with" />
+		  </div>
+		</div>
+	  
+		<div class="swap-icon">
+			<i class="bi bi-arrow-down-up border border-2" (click)="swapFindAndReplaceText()"></i>
+		</div>
+	  </div>
+
+	<div class="case-sensitive-checkbox">
+		<input type="checkbox" formControlName="caseSensitive" id="caseSensitive" /> Case sensitive
+	</div>
+
+	<div class="button-group">
+		<button class="button-primary" type="submit" (click)="replaceOne()" [disabled]="findAndReplaceForm.invalid">
+			Replace One
+		</button>
+		<button class="button-primary" type="submit" (click)="replaceAll()" [disabled]="findAndReplaceForm.invalid">
+			Replace All
+		</button>
+		<button class="button-secondary" (click)="reset()">Reset</button>
+	</div>
+	</div>
+</div>
