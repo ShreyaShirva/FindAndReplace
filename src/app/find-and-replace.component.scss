@@ -114,3 +114,56 @@ textarea {
 		background-color: #5a6268;
 	}
 }
+
+@media (max-width: 768px) {
+	.find-and-replace-container {
+		width: 80%;
+		padding: 15px;
+	}
+
+	.find-inputs {
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.swap-icon {
+		margin: 10px auto;
+	}
+
+	.button-group {
+		flex-direction: column;
+		gap: 10px;
+	}
+}
+
+@media (max-width: 480px) {
+	.find-and-replace-page {
+		flex-direction: column;
+		justify-content: center;
+		padding: 10px;
+		height: auto;
+	}
+
+	.find-and-replace-container {
+		width: 100%;
+		padding: 10px;
+		box-shadow: none;
+	}
+
+	h1 {
+		font-size: 1.5em;
+	}
+
+	textarea {
+		height: 150px;
+	}
+
+	.input-group input {
+		font-size: 0.9em;
+	}
+
+	.button-group {
+		flex-direction: column;
+		gap: 5px;
+	}
+}
