@@ -9,6 +9,7 @@ import { TEXT, FIND_TEXT, REPLACE_TEXT, CASE_SENSITIVE } from './constants/find-
 })
 export class FindAndReplaceComponent {
 	public title = 'FindAndReplace';
+	public textNotFound = false;
 	public findAndReplaceForm: FormGroup = new FormGroup({
 		text: new FormControl('', [Validators.required]),
 		findText: new FormControl('', [Validators.required]),
@@ -39,6 +40,7 @@ export class FindAndReplaceComponent {
 
 	reset(): void {
 		this.findAndReplaceForm.reset();
+		this.textNotFound = false;
 	}
 
 	replaceAndUpdateText(replaceAll: boolean = false): void {
@@ -49,16 +51,27 @@ export class FindAndReplaceComponent {
 		if (replaceAll) {
 			flags += 'g';
 		}
-		const regex = new RegExp(this.findAndReplaceForm.controls[FIND_TEXT].value, flags);
+		const findText = this.findAndReplaceForm.controls[FIND_TEXT].value;
+		const replaceText = this.findAndReplaceForm.controls[REPLACE_TEXT].value;
+		const text = this.findAndReplaceForm.controls[TEXT].value;
+
+		const regex = new RegExp(findText, flags);
 		this.findAndReplaceForm.controls[TEXT].setValue(
-			this.findAndReplaceForm.controls[TEXT].value.replace(
+			text.replace(
 				regex,
-				this.findAndReplaceForm.controls[REPLACE_TEXT].value
+				replaceText
 			)
 		);
+		if (!regex.test(text)) {
+			this.textNotFound = true;
+		} else {
+			this.textNotFound = false;
+			this.findAndReplaceForm.controls[TEXT].setValue(text.replace(regex, replaceText));
+		}
 	}
 
 	swapFindAndReplaceText() {
+		this.textNotFound = false;
 		const findText = this.findAndReplaceForm.controls[FIND_TEXT].value ?? '';
 		const replaceText = this.findAndReplaceForm.controls[REPLACE_TEXT].value ?? '';
 		if (findText || replaceText) {

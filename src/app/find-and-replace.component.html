@@ -33,6 +33,10 @@
 		<input type="checkbox" formControlName="caseSensitive" id="caseSensitive" /> Case sensitive
 	</div>
 
+	<div *ngIf="textNotFound" class="error-message">
+		Word/Phrase to be replaced is not found
+	</div>
+
 	<div class="button-group">
 		<button class="button-primary" type="submit" (click)="replaceOne()" [disabled]="findAndReplaceForm.invalid">
 			Replace One
